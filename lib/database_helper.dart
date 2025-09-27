@@ -18,7 +18,7 @@ class DatabaseHelper {
       join(await getDatabasesPath(), 'task_manager.db'),
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, deadline INTEGER, completed_at INTEGER)',
+          'CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT, deadline INTEGER NOT NULL, completed_at INTEGER)',
         );
       },
       version: 1,

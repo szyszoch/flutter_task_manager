@@ -1,7 +1,7 @@
 class Task {
   final int? id;
   final String title;
-  final String description;
+  final String? description;
   final DateTime deadline;
   DateTime? completedAt;
 
@@ -9,7 +9,7 @@ class Task {
     this.id,
     required this.title,
     required this.deadline,
-    this.description = '',
+    this.description,
     this.completedAt,
   });
 

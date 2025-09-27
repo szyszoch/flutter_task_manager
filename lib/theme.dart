@@ -103,6 +103,10 @@ final ThemeData darkTheme = ThemeData(
     backgroundColor: AppColors.darkFill,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
   ),
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: AppColors.darkFill,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+  ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: AppColors.darkSurface,

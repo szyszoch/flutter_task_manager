@@ -3,41 +3,50 @@ import 'package:intl/intl.dart';
 
 class DateFormField extends FormField<DateTime?> {
   final ValueChanged<DateTime?> onDateChanged;
+  final DateTime? value;
 
   DateFormField({
     super.key,
-    super.initialValue,
+    this.value,
     required this.onDateChanged,
     super.validator,
     AutovalidateMode super.autovalidateMode = AutovalidateMode.disabled,
   }) : super(
-         builder: (state) =>
-             _DatePicker(state: state, onDateChanged: onDateChanged),
+         initialValue: value,
+         builder: (state) {
+           final effectiveValue = value ?? state.value;
+
+           return _DatePicker(
+             state: state,
+             value: effectiveValue,
+             onDateChanged: onDateChanged,
+           );
+         },
        );
 }
 
-class _DatePicker extends StatefulWidget {
-  const _DatePicker({required this.state, required this.onDateChanged});
+class _DatePicker extends StatelessWidget {
+  const _DatePicker({
+    required this.state,
+    required this.value,
+    required this.onDateChanged,
+  });
 
   final FormFieldState<DateTime?> state;
+  final DateTime? value;
   final ValueChanged<DateTime?> onDateChanged;
 
-  @override
-  State<_DatePicker> createState() => _DatePickerState();
-}
-
-class _DatePickerState extends State<_DatePicker> {
-  Future<void> _pickDate() async {
+  Future<void> _pickDate(BuildContext context) async {
     final pickedDate = await showDatePicker(
       context: context,
-      initialDate: widget.state.value ?? DateTime.now(),
+      initialDate: value ?? DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
     );
 
     if (pickedDate != null) {
-      widget.state.didChange(pickedDate);
-      widget.onDateChanged(pickedDate);
+      state.didChange(pickedDate);
+      onDateChanged(pickedDate);
     }
   }
 
@@ -45,23 +54,21 @@ class _DatePickerState extends State<_DatePicker> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-
       children: [
         ElevatedButton.icon(
-          onPressed: _pickDate,
+          onPressed: () => _pickDate(context),
           icon: const Icon(Icons.calendar_today),
           label: Text(
-            widget.state.value == null
+            value == null
                 ? 'Wybierz datę'
-                : DateFormat('dd.MM.yyyy').format(widget.state.value!),
+                : DateFormat('dd.MM.yyyy').format(value!),
           ),
         ),
-
-        if (widget.state.hasError)
+        if (state.hasError)
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              widget.state.errorText!,
+              state.errorText!,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.error,
                 fontSize: 12.0,
