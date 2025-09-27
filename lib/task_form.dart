@@ -146,6 +146,8 @@ class _TaskFormState extends State<TaskForm> {
               ),
             ],
           ),
+
+          SizedBox(height: 1),
         ],
       ),
     );
