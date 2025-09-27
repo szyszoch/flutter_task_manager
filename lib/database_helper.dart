@@ -45,7 +45,10 @@ class DatabaseHelper {
 
   Future<List<Task>> allTasks() async {
     final db = await _database;
-    final List<Map<String, Object?>> taskMaps = await db.query('tasks');
+    final List<Map<String, Object?>> taskMaps = await db.query(
+      'tasks',
+      orderBy: 'deadline ASC',
+    );
     return Task.fromMaps(taskMaps);
   }
 
