@@ -33,14 +33,14 @@ class DatabaseHelper {
     }
   }
 
-  Future<Task> createTask(Task task) async {
+  Future<int> createTask(Task task) async {
     final Database db = await _database;
     final int id = await db.insert(
       'tasks',
       task.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-    return task.copyWith(id: id);
+    return id;
   }
 
   Future<List<Task>> allTasks() async {
