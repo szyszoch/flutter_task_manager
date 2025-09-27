@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class Task {
   final int? id;
   final String title;
@@ -14,7 +16,23 @@ class Task {
   });
 
   bool get isCompleted => completedAt != null;
-  bool get isOverdue => !isCompleted && deadline.isBefore(DateTime.now());
+  bool get isLate => deadline.isBefore(DateTime.now());
+  bool get isOverdue => !isCompleted && isLate;
+
+  String get leftTime {
+    if (isCompleted) return '0m';
+    final now = DateTime.now();
+    final diff = deadline.difference(now);
+    final duration = diff.abs();
+    final days = duration.inDays;
+    final hours = duration.inHours % 24;
+    final minutes = duration.inMinutes % 60;
+    final buffer = StringBuffer();
+    if (days > 0) buffer.write('${days}d ');
+    if (hours > 0) buffer.write('${hours}h ');
+    if (minutes > 0 || (days == 0 && hours == 0)) buffer.write('${minutes}m');
+    return buffer.toString().trim();
+  }
 
   Map<String, Object?> toMap() => {
     'id': id,
