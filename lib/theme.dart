@@ -12,10 +12,15 @@ class AppColors {
 
 final ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: AppColors.white,
+  dividerColor: AppColors.grey,
+  cardColor: AppColors.white,
   colorScheme: ColorScheme.light(
     primary: AppColors.black,
     onPrimary: AppColors.white,
     surface: AppColors.white,
+    onSurface: AppColors.black,
+    secondary: AppColors.grey,
+    onSecondary: AppColors.black,
   ),
   appBarTheme: AppBarTheme(
     elevation: 0,
@@ -78,10 +83,15 @@ final ThemeData lightTheme = ThemeData(
 
 final ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: AppColors.black,
+  dividerColor: AppColors.darkBorder,
+  cardColor: AppColors.darkFill,
   colorScheme: ColorScheme.dark(
     primary: AppColors.white,
     onPrimary: AppColors.black,
-    surface: AppColors.black,
+    surface: AppColors.darkSurface,
+    onSurface: AppColors.white,
+    secondary: AppColors.darkHint,
+    onSecondary: AppColors.white,
   ),
   appBarTheme: AppBarTheme(
     elevation: 0,
