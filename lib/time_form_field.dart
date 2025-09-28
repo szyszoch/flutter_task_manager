@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_manager/form_error_text.dart';
 
 class TimeFormField extends FormField<TimeOfDay?> {
   final ValueChanged<TimeOfDay?> onTimeChanged;
@@ -13,11 +14,9 @@ class TimeFormField extends FormField<TimeOfDay?> {
   }) : super(
          initialValue: value,
          builder: (state) {
-           final effectiveValue = value ?? state.value;
-
            return _TimePicker(
              state: state,
-             value: effectiveValue,
+             value: state.value,
              onTimeChanged: onTimeChanged,
            );
          },
@@ -49,25 +48,20 @@ class _TimePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String label = value == null
+        ? 'Wybierz czas'
+        : value!.format(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         ElevatedButton.icon(
           onPressed: () => _pickTime(context),
           icon: const Icon(Icons.access_time),
-          label: Text(value == null ? 'Wybierz czas' : value!.format(context)),
+          label: Text(label),
         ),
         if (state.hasError)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              state.errorText!,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.error,
-                fontSize: 12.0,
-              ),
-            ),
-          ),
+          buildFormErrorText(context, state.errorText!, isCustomField: true),
       ],
     );
   }
