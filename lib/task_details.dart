@@ -16,10 +16,10 @@ void showTaskDetailsDialog(BuildContext context, Task task) {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              TaskDeadlineText(task: task),
+              TaskDeadlineText(task: task, hasIcon: true),
 
               Text(
-                'Termin do: ${DateFormat('dd.MM.yyyy HH:mm').format(task.deadline)}',
+                'Termin: ${DateFormat('dd.MM.yyyy HH:mm').format(task.deadline)}',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.secondary,
                 ),
