@@ -109,6 +109,7 @@ class _TaskFormState extends State<TaskForm> {
 
           DateFormField(
             value: _date,
+            preventPastDate: true,
             onDateChanged: (value) {
               setState(() {
                 _date = value;
