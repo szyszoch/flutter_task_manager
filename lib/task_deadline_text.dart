@@ -4,8 +4,9 @@ import 'package:intl/intl.dart';
 
 class TaskDeadlineText extends StatelessWidget {
   final Task task;
+  final bool hasIcon;
 
-  const TaskDeadlineText({super.key, required this.task});
+  const TaskDeadlineText({super.key, required this.task, this.hasIcon = false});
 
   String _statusText() {
     if (task.isCompleted) {
@@ -28,15 +29,16 @@ class TaskDeadlineText extends StatelessWidget {
     return Row(
       spacing: 6,
       children: [
-        Icon(
-          task.isCompleted
-              ? Icons.check_circle
-              : task.isOverdue
-              ? Icons.error
-              : Icons.access_time,
-          size: 18,
-          color: color,
-        ),
+        if (hasIcon)
+          Icon(
+            task.isCompleted
+                ? Icons.check_circle
+                : task.isOverdue
+                ? Icons.error
+                : Icons.access_time,
+            size: 18,
+            color: color,
+          ),
         Expanded(
           child: Text(
             _statusText(),
