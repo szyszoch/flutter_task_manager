@@ -1,3 +1,4 @@
+import 'package:flutter_task_manager/helpers/notification_helper.dart';
 import 'package:flutter_task_manager/models/task.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -32,23 +33,39 @@ class DatabaseHelper {
 
   Future<int> createTask(Task task) async {
     final db = await database;
-    return await db.insert('tasks', task.toMap());
+    int id = await db.insert('tasks', task.toMap());
+    if (id > 0) {
+      await NotificationHelper().scheduleTaskNotification(
+        task.copyWith(id: id),
+      );
+    }
+    return id;
   }
 
   Future<int> updateTask(Task task) async {
     if (task.id == null) throw ArgumentError('Task ID cannot be null');
     final db = await database;
-    return await db.update(
+    int id = await db.update(
       'tasks',
       task.toMap(),
       where: 'id = ?',
       whereArgs: [task.id],
     );
+    if (id > 0) {
+      await NotificationHelper().scheduleTaskNotification(
+        task.copyWith(id: id),
+      );
+    }
+    return id;
   }
 
   Future<int> deleteTask(int id) async {
     final db = await database;
-    return await db.delete('tasks', where: 'id = ?', whereArgs: [id]);
+    int rows = await db.delete('tasks', where: 'id = ?', whereArgs: [id]);
+    if (rows > 0) {
+      await NotificationHelper().cancelTaskNotifications(id);
+    }
+    return rows;
   }
 
   Future<List<Task>> allTasks() async {

@@ -16,7 +16,9 @@ class Task {
   });
 
   bool get isCompleted => completedAt != null;
-  bool get isLate => deadline.isBefore(DateTime.now());
+  bool get isLate =>
+      deadline.isAtSameMomentAs(DateTime.now()) ||
+      deadline.isBefore(DateTime.now());
   bool get isOverdue => !isCompleted && isLate;
 
   String get leftTime {

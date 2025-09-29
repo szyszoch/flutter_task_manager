@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_task_manager/models/task.dart';
-import 'package:flutter_task_manager/database_helper.dart';
+import 'package:flutter_task_manager/helpers/database_helper.dart';
 import 'package:flutter_task_manager/popups/show_task_form.dart';
 import 'package:flutter_task_manager/task_item.dart';
 
@@ -46,10 +46,16 @@ class TaskPageState extends State<TaskPage> {
     }
 
     for (var newTask in tasks) {
-      if (!_tasks.any((t) => t.id == newTask.id)) {
+      final existingIndex = _tasks.indexWhere((t) => t.id == newTask.id);
+      if (existingIndex == -1) {
         _insertTask(newTask);
+      } else {
+        _tasks[existingIndex] = newTask;
       }
     }
+
+    if (!mounted) return;
+    setState(() {});
   }
 
   Future<void> createTask() async {
@@ -114,14 +120,20 @@ class TaskPageState extends State<TaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _tasks.isEmpty
-          ? Center(child: Text(_emptyMessage))
-          : AnimatedList(
-              key: _listKey,
-              initialItemCount: _tasks.length,
-              itemBuilder: (context, index, animation) =>
-                  _buildItem(_tasks[index], animation),
-            ),
+      body: RefreshIndicator(
+        onRefresh: _refreshTasks,
+        child: _tasks.isEmpty
+            ? ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: [Center(child: Text(_emptyMessage))],
+              )
+            : AnimatedList(
+                key: _listKey,
+                initialItemCount: _tasks.length,
+                itemBuilder: (context, index, animation) =>
+                    _buildItem(_tasks[index], animation),
+              ),
+      ),
     );
   }
 }

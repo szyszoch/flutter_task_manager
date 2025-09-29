@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_manager/helpers/notification_helper.dart';
 import 'package:flutter_task_manager/pages/home_page.dart';
 import 'package:flutter_task_manager/theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationHelper().init();
   runApp(const App());
 }
 

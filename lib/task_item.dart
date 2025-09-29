@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_task_manager/action_icon.dart';
 import 'package:flutter_task_manager/animated_size_and_fade.dart';
-import 'package:flutter_task_manager/database_helper.dart';
+import 'package:flutter_task_manager/helpers/database_helper.dart';
 import 'package:flutter_task_manager/popups/show_delete_task_confirmation.dart';
 import 'package:flutter_task_manager/popups/show_snackbar.dart';
 import 'package:flutter_task_manager/popups/show_task_form.dart';
@@ -56,9 +56,12 @@ class _TaskItemState extends State<TaskItem> {
   void _onEdit() async {
     _toggleExpand();
     Task? task = await showTaskForm(context, widget.task);
-    if (task != null && mounted == true) {
-      showSnackbar(context, 'Pomyślnie zaktualizowano zadanie.');
-      widget.onEdit?.call();
+    if (task != null) {
+      await DatabaseHelper.instance.updateTask(task);
+      if (mounted == true) {
+        showSnackbar(context, 'Pomyślnie zaktualizowano zadanie.');
+        widget.onEdit?.call();
+      }
     }
   }
 
