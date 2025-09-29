@@ -33,20 +33,23 @@ class _TaskCheckboxState extends State<TaskCheckbox>
     return Colors.grey;
   }
 
-  void _animateIcon() {
-    _controller.forward().then((_) => _controller.reverse());
+  Future<void> _animateIcon() async {
+    await _controller.forward();
+    await _controller.reverse();
   }
 
   void _handleTap() {
-    widget.onToggle?.call();
-    setState(() {});
+    _animateIcon();
+    if (widget.onToggle != null) {
+      widget.onToggle!();
+    }
   }
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 220),
+      duration: const Duration(milliseconds: 100),
       vsync: this,
     );
     _animation = Tween<double>(
@@ -59,9 +62,7 @@ class _TaskCheckboxState extends State<TaskCheckbox>
   void didUpdateWidget(TaskCheckbox oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.completed != oldWidget.completed ||
-        widget.failure != oldWidget.failure) {
-      _animateIcon();
-    }
+        widget.failure != oldWidget.failure) {}
   }
 
   @override

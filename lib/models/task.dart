@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+enum TaskType { ongoing, completed, overdue }
 
 class Task {
   final int? id;

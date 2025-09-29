@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_manager/task_page.dart';
+import 'package:flutter_task_manager/pages/home_page.dart';
 import 'package:flutter_task_manager/theme.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
-      home: const TaskPage(),
+      home: const HomePage(),
     );
   }
 }

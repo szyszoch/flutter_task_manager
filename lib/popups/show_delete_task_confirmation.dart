@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_manager/task.dart';
+import 'package:flutter_task_manager/models/task.dart';
 
 Future<bool?> showDeleteTaskConfirmation(BuildContext context, Task task) {
   return showDialog<bool>(

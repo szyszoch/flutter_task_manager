@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_manager/task.dart';
+import 'package:flutter_task_manager/models/task.dart';
 import 'package:intl/intl.dart';
 
 class TaskDeadlineText extends StatelessWidget {
@@ -13,7 +13,7 @@ class TaskDeadlineText extends StatelessWidget {
       return 'Ukończone ${DateFormat('dd.MM.yyyy HH:mm').format(task.completedAt!)}';
     }
     if (task.isOverdue) {
-      return 'Przeterminowane o ${task.leftTime}';
+      return 'Zaległe ${task.leftTime}';
     }
     return '${task.leftTime} do terminu';
   }

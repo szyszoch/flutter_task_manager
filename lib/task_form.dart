@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_manager/database_helper.dart';
 import 'package:flutter_task_manager/date_form_field.dart';
 import 'package:flutter_task_manager/form_actions.dart';
 import 'package:flutter_task_manager/form_error_text.dart';
-import 'package:flutter_task_manager/task.dart';
+import 'package:flutter_task_manager/models/task.dart';
 import 'package:flutter_task_manager/time_form_field.dart';
 
 class TaskForm extends StatefulWidget {
@@ -55,8 +54,8 @@ class _TaskFormState extends State<TaskForm> {
 
   Future<void> _submit() async {
     if (!_key.currentState!.validate()) return;
-    final isEditing = widget.task != null;
-    final task = Task(
+    final bool isEditing = widget.task != null;
+    final Task task = Task(
       id: isEditing ? widget.task!.id : null,
       title: _title.text.trim(),
       description: _description.text.trim().isEmpty
@@ -64,10 +63,7 @@ class _TaskFormState extends State<TaskForm> {
           : _description.text.trim(),
       deadline: _deadline!,
     );
-    final int result = isEditing
-        ? await DatabaseHelper.instance.updateTask(task)
-        : await DatabaseHelper.instance.createTask(task);
-    if (mounted) Navigator.of(context).pop(result);
+    if (mounted) Navigator.of(context).pop(task);
   }
 
   @override

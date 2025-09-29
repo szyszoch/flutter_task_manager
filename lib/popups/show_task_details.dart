@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_task_manager/task_deadline_text.dart';
 import 'package:intl/intl.dart';
-import 'task.dart';
+import '../models/task.dart';
 
 void showTaskDetailsDialog(BuildContext context, Task task) {
   showDialog(

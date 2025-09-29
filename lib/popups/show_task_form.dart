@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_manager/task.dart';
+import 'package:flutter_task_manager/models/task.dart';
 import 'package:flutter_task_manager/task_form.dart';
 
-Future<bool> showTaskForm(BuildContext context, [Task? task]) async {
-  final int? result = await showModalBottomSheet(
+Future<Task?> showTaskForm(BuildContext context, [Task? task]) async {
+  return await showModalBottomSheet<Task?>(
     context: context,
     isScrollControlled: true,
     useSafeArea: true,
@@ -20,6 +20,4 @@ Future<bool> showTaskForm(BuildContext context, [Task? task]) async {
       ),
     ),
   );
-
-  return result != null && result > 0;
 }
