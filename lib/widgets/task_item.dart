@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_manager/action_icon.dart';
-import 'package:flutter_task_manager/animated_size_and_fade.dart';
+import 'package:flutter_task_manager/widgets/action_icon.dart';
+import 'package:flutter_task_manager/widgets/animated_size_and_fade.dart';
 import 'package:flutter_task_manager/helpers/database_helper.dart';
 import 'package:flutter_task_manager/popups/show_delete_task_confirmation.dart';
 import 'package:flutter_task_manager/popups/show_snackbar.dart';
 import 'package:flutter_task_manager/popups/show_task_form.dart';
-import 'package:flutter_task_manager/task_checkbox.dart';
-import 'package:flutter_task_manager/task_deadline_text.dart';
+import 'package:flutter_task_manager/widgets/task_checkbox.dart';
+import 'package:flutter_task_manager/widgets/task_deadline_text.dart';
 import 'package:flutter_task_manager/popups/show_task_details.dart';
-import 'models/task.dart';
+import '../models/task.dart';
 
 class TaskItem extends StatefulWidget {
   final Task task;

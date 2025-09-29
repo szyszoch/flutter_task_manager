@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_manager/date_form_field.dart';
-import 'package:flutter_task_manager/form_actions.dart';
-import 'package:flutter_task_manager/form_error_text.dart';
+import 'package:flutter_task_manager/widgets/date_form_field.dart';
+import 'package:flutter_task_manager/widgets/form_actions.dart';
+import 'package:flutter_task_manager/widgets/form_error_text.dart';
 import 'package:flutter_task_manager/models/task.dart';
-import 'package:flutter_task_manager/time_form_field.dart';
+import 'package:flutter_task_manager/widgets/time_form_field.dart';
 
 class TaskForm extends StatefulWidget {
   final Task? task;

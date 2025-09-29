@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_task_manager/models/task.dart';
 import 'package:flutter_task_manager/helpers/database_helper.dart';
 import 'package:flutter_task_manager/popups/show_task_form.dart';
-import 'package:flutter_task_manager/task_item.dart';
+import 'package:flutter_task_manager/widgets/task_item.dart';
 
 class TaskPage extends StatefulWidget {
   final TaskType type;

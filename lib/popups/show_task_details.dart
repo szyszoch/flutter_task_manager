@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_manager/task_deadline_text.dart';
+import 'package:flutter_task_manager/widgets/task_deadline_text.dart';
 import 'package:intl/intl.dart';
 import '../models/task.dart';
 
