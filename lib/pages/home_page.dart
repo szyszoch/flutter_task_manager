@@ -26,6 +26,13 @@ class _HomePageState extends State<HomePage> {
     StatisticsPage(),
   ];
 
+  List<String> get _headers => [
+    'Zadania w toku',
+    'Zadania ukończone',
+    'Zadania zaległe',
+    'Statystyki',
+  ];
+
   bool get _isTaskTab => _currentIndex < 3;
 
   void _onTabTapped(int index) {
@@ -46,6 +53,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(_headers[_currentIndex])),
       body: PageView(
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
