@@ -74,9 +74,7 @@ class _TaskItemState extends State<TaskItem> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      child: Material(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(12),
+      child: Card(
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: _toggleExpand,

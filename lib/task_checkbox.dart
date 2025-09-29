@@ -38,8 +38,8 @@ class _TaskCheckboxState extends State<TaskCheckbox>
     await _controller.reverse();
   }
 
-  void _handleTap() {
-    _animateIcon();
+  void _handleTap() async {
+    await _animateIcon();
     if (widget.onToggle != null) {
       widget.onToggle!();
     }

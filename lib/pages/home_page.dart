@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
         children: _tabs,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.shifting,
         currentIndex: _currentIndex,
         onTap: _onTabTapped,
         items: const [

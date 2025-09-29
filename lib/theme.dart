@@ -79,6 +79,16 @@ final ThemeData lightTheme = ThemeData(
       side: const BorderSide(color: AppColors.black),
     ),
   ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    selectedItemColor: AppColors.black,
+    unselectedItemColor: AppColors.black,
+  ),
+  cardTheme: CardThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+      side: const BorderSide(color: Colors.black),
+    ),
+  ),
 );
 
 final ThemeData darkTheme = ThemeData(
@@ -155,6 +165,16 @@ final ThemeData darkTheme = ThemeData(
       backgroundColor: Colors.transparent,
       foregroundColor: AppColors.white,
       side: BorderSide(color: Colors.grey.shade300),
+    ),
+  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    selectedItemColor: AppColors.white,
+    unselectedItemColor: AppColors.white,
+  ),
+  cardTheme: CardThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+      side: BorderSide(color: AppColors.darkBorder),
     ),
   ),
 );
