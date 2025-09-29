@@ -78,8 +78,8 @@ class NotificationHelper {
       if (scheduled.isBefore(now)) continue;
       final notifId = task.id! * 10 + i;
 
-      final title = _buildTaskTitle(task);
-      final body = _buildTaskBody(task);
+      final title = _buildTaskTitle(task, reminders[i].inSeconds == 0);
+      final body = _buildTaskBody(task, reminders[i].inSeconds == 0);
 
       await scheduleNotification(
         id: notifId,
@@ -90,17 +90,17 @@ class NotificationHelper {
     }
   }
 
-  String _buildTaskTitle(Task task) {
-    if (task.isOverdue) {
+  String _buildTaskTitle(Task task, bool afterDeadline) {
+    if (afterDeadline) {
       return 'Termin zadania minął!';
     } else {
       return 'Przypomnienie o zbliżającym się terminie';
     }
   }
 
-  String _buildTaskBody(Task task) {
+  String _buildTaskBody(Task task, bool afterDeadline) {
     final deadlineStr = DateFormat('dd.MM.yyyy HH:mm').format(task.deadline);
-    if (task.isOverdue) {
+    if (afterDeadline) {
       return 'Masz zaległe zadanie. Ostateczny termin: $deadlineStr';
     } else {
       return 'Za ${task.leftTime} kończy się czas na wykonanie zadania. Ostateczny termin: $deadlineStr';

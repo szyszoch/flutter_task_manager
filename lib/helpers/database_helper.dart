@@ -52,9 +52,12 @@ class DatabaseHelper {
       whereArgs: [task.id],
     );
     if (id > 0) {
-      await NotificationHelper().scheduleTaskNotification(
-        task.copyWith(id: id),
-      );
+      final updatedTask = task.copyWith(id: task.id);
+      if (updatedTask.isCompleted) {
+        await NotificationHelper().cancelTaskNotifications(task.id!);
+      } else {
+        await NotificationHelper().scheduleTaskNotification(updatedTask);
+      }
     }
     return id;
   }
