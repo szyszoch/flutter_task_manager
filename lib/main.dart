@@ -19,7 +19,7 @@ class App extends StatelessWidget {
       title: 'Manadżer zadań',
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       home: const HomePage(),
     );
   }
