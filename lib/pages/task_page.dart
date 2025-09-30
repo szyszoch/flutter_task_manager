@@ -59,11 +59,12 @@ class TaskPageState extends State<TaskPage> {
   }
 
   Future<void> createTask() async {
-    final newTask = await showTaskForm(context);
+    final Task? newTask = await showTaskForm(context);
     if (newTask != null) {
-      await _dbHelper.createTask(newTask);
+      final id = await _dbHelper.createTask(newTask);
+      final taskWithId = newTask.copyWith(id: id);
       if (!mounted) return;
-      _insertTask(newTask);
+      _insertTask(taskWithId);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Pomyślnie dodano zadanie.')),
       );

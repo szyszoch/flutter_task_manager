@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._init();
+  static final NotificationHelper _nfHelper = NotificationHelper.create();
   static Database? _db;
 
   DatabaseHelper._init();
@@ -12,11 +13,6 @@ class DatabaseHelper {
   Future<Database> get database async {
     _db ??= await _initDb();
     return _db!;
-  }
-
-  Future<Database> _initDb() async {
-    final path = join(await getDatabasesPath(), 'task_manager.db');
-    return openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -31,13 +27,16 @@ class DatabaseHelper {
     ''');
   }
 
+  Future<Database> _initDb() async {
+    final path = join(await getDatabasesPath(), 'task_manager.db');
+    return openDatabase(path, version: 1, onCreate: _onCreate);
+  }
+
   Future<int> createTask(Task task) async {
     final db = await database;
     int id = await db.insert('tasks', task.toMap());
     if (id > 0) {
-      await NotificationHelper().scheduleTaskNotification(
-        task.copyWith(id: id),
-      );
+      await _nfHelper.scheduleTaskNotification(task.copyWith(id: id));
     }
     return id;
   }
@@ -45,28 +44,27 @@ class DatabaseHelper {
   Future<int> updateTask(Task task) async {
     if (task.id == null) throw ArgumentError('Task ID cannot be null');
     final db = await database;
-    int id = await db.update(
+    int rows = await db.update(
       'tasks',
       task.toMap(),
       where: 'id = ?',
       whereArgs: [task.id],
     );
-    if (id > 0) {
-      final updatedTask = task.copyWith(id: task.id);
-      if (updatedTask.isCompleted) {
-        await NotificationHelper().cancelTaskNotifications(task.id!);
+    if (rows > 0) {
+      if (task.isCompleted) {
+        await _nfHelper.cancelTaskNotifications(task.id!);
       } else {
-        await NotificationHelper().scheduleTaskNotification(updatedTask);
+        await _nfHelper.scheduleTaskNotification(task);
       }
     }
-    return id;
+    return rows;
   }
 
   Future<int> deleteTask(int id) async {
     final db = await database;
     int rows = await db.delete('tasks', where: 'id = ?', whereArgs: [id]);
     if (rows > 0) {
-      await NotificationHelper().cancelTaskNotifications(id);
+      await _nfHelper.cancelTaskNotifications(id);
     }
     return rows;
   }

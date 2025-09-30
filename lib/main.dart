@@ -5,7 +5,7 @@ import 'package:flutter_task_manager/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationHelper().init();
+  NotificationHelper.create().init();
   runApp(const App());
 }
 
