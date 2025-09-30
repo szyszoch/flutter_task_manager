@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_task_manager/helpers/notification_helper.dart';
 import 'package:flutter_task_manager/pages/home_page.dart';
-import 'package:flutter_task_manager/theme.dart';
+import 'package:flutter_task_manager/styles/themes/dark_theme.dart';
+import 'package:flutter_task_manager/styles/themes/light_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,7 @@ class App extends StatelessWidget {
       title: 'Manadżer zadań',
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       home: const HomePage(),
     );
   }

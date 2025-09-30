@@ -100,7 +100,6 @@ class _TaskItemState extends State<TaskItem> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.onSurface,
                             ),
                           ),
                           TaskDeadlineText(task: widget.task),

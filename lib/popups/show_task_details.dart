@@ -20,9 +20,7 @@ void showTaskDetailsDialog(BuildContext context, Task task) {
 
               Text(
                 'Termin: ${DateFormat('dd.MM.yyyy HH:mm').format(task.deadline)}',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
+                style: Theme.of(context).textTheme.bodySmall,
               ),
 
               const SizedBox(height: 8),
@@ -36,9 +34,7 @@ void showTaskDetailsDialog(BuildContext context, Task task) {
                 Center(
                   child: Text(
                     'Brak opisu',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
             ],

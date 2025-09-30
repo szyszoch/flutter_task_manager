@@ -52,6 +52,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final barBackgroundColor = Theme.of(
+      context,
+    ).bottomNavigationBarTheme.backgroundColor;
     return Scaffold(
       appBar: AppBar(title: Text(_headers[_currentIndex])),
       body: PageView(
@@ -63,19 +66,27 @@ class _HomePageState extends State<HomePage> {
         type: BottomNavigationBarType.shifting,
         currentIndex: _currentIndex,
         onTap: _onTabTapped,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.hourglass_empty),
+            icon: const Icon(Icons.hourglass_empty),
             label: 'W toku',
+            backgroundColor: barBackgroundColor,
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.check), label: 'Ukończone'),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.check),
+            label: 'Ukończone',
+            backgroundColor: barBackgroundColor,
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.warning),
             label: 'Nieukończone',
+
+            backgroundColor: barBackgroundColor,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart),
             label: 'Statystyki',
+            backgroundColor: barBackgroundColor,
           ),
         ],
       ),
